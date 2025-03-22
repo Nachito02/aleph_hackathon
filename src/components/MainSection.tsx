@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 export const MainSection = () => {
+
+  const navigate = useNavigate()
   return (
     <section className="container grid  place-items-center py-20 md:py-32 gap-10">
       <div className="  lg:text-center space-y-6 w-3/4 ">
@@ -24,7 +27,7 @@ export const MainSection = () => {
         </p>
 
           <div className="flex flex-col md:flex-row md:space-x-4 justify-center space-y-4 md:space-y-0">
-          <Button className="w-full md:w-1/3  ">Get Started</Button>
+          <Button onClick={() => {navigate('/register')}} className="w-full md:w-1/3  ">Get Started</Button>
         </div>
       </div>
 
