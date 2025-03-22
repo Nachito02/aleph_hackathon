@@ -7,29 +7,15 @@ interface SponsorProps {
 
 const sponsors: SponsorProps[] = [
   {
-    icon: <Radar size={34} />,
-    name: "Sponsor 1",
+    icon: <img src="./world-logo.svg" alt="" size={34} />,
+    name: "",
   },
   {
-    icon: <Radar size={34} />,
-    name: "Sponsor 2",
+    icon: <img src="zk-logo.svg" alt=""className="max-h-[32px] transition duration-300 ease-in-out  invert mix-blend-multiply"  size={34} />,
+    
+    name: "",
   },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 3",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 4",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 5",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 6",
-  },
+
 ];
 
 export const Sponsors = () => {

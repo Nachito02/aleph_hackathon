@@ -12,12 +12,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
-
+import { LogIn } from 'lucide-react';
+import { CircleUserRound } from 'lucide-react';
 interface RouteProps {
   href: string;
   label: string;
@@ -26,11 +26,11 @@ interface RouteProps {
 const routeList: RouteProps[] = [
   {
     href: "#features",
-    label: "Features",
+    label: "INVERCIONES",
   },
   {
     href: "#testimonials",
-    label: "Testimonials",
+    label: "GANANCIAS",
   },
   {
     href: "#pricing",
@@ -55,7 +55,7 @@ export const Navbar = () => {
               className="ml-2 font-bold text-xl flex"
             >
               <LogoIcon />
-              ShadcnUI/React
+             Invert IA
             </a>
           </NavigationMenuItem>
 
@@ -83,7 +83,7 @@ export const Navbar = () => {
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
-                  {routeList.map(({ href, label }: RouteProps) => (
+                  {/* {routeList.map(({ href, label }: RouteProps) => (
                     <a
                       rel="noreferrer noopener"
                       key={label}
@@ -104,7 +104,7 @@ export const Navbar = () => {
                   >
                     <GitHubLogoIcon className="mr-2 w-5 h-5" />
                     Github
-                  </a>
+                  </a> */}
                 </nav>
               </SheetContent>
             </Sheet>
@@ -124,17 +124,32 @@ export const Navbar = () => {
                 {route.label}
               </a>
             ))}
+
+            
           </nav>
+          
+       
 
           <div className="hidden md:flex gap-2">
+          <a
+              rel="noreferrer noopener"
+              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+              target="_blank"
+              className={`border ${buttonVariants({ variant: "secondary" })}`}
+              
+            >register
+            <CircleUserRound className="mr-2 w-5 h-5" />
+            
+            </a>
             <a
               rel="noreferrer noopener"
               href="https://github.com/leoMirandaa/shadcn-landing-page.git"
               target="_blank"
               className={`border ${buttonVariants({ variant: "secondary" })}`}
-            >
-              <GitHubLogoIcon className="mr-2 w-5 h-5" />
-              Github
+              
+            >login
+            <LogIn className="mr-2 w-5 h-5" />
+            
             </a>
 
             <ModeToggle />

@@ -19,18 +19,18 @@ function App() {
   return (
     <>
       <Navbar />
-      <Hero />
+       <Hero /> 
       <Sponsors />
       <About />
       <HowItWorks />
       <Features />
-      <Services />
+      {/* <Services />
       <Cta />
       <Testimonials />
       <Team />
       <Pricing />
       <Newsletter />
-      <FAQ />
+      <FAQ /> */}
       <Footer />
       <ScrollToTop />
     </>
