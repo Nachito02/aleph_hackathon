@@ -56,3 +56,6 @@ export const Sponsors = () => {
     </section>
   );
 };
+
+
+export default Sponsors

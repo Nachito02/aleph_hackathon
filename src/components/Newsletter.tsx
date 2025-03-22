@@ -22,7 +22,8 @@ export const Newsletter = () => {
           Lorem ipsum dolor sit amet consectetur.
         </p>
 
-        <form
+       
+      </div> <form
           className="flex flex-col w-full md:flex-row md:w-6/12 lg:w-4/12 mx-auto gap-4 md:gap-2"
           onSubmit={handleSubmit}
         >
@@ -33,7 +34,6 @@ export const Newsletter = () => {
           />
           <Button>Subscribe</Button>
         </form>
-      </div>
 
       <hr className="w-11/12 mx-auto" />
     </section>
