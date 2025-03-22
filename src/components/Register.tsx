@@ -166,6 +166,17 @@ export default function Register()  {
             <Button className="w-full" type="submit">
               Verificar con World ID
             </Button>
+            <div className="text-center">
+              <Label className="text-center" htmlFor="userName">Si ya tienes usuario inicia sesion</Label>
+              <Button className="w-full" type="submit">
+             Login
+            </Button>
+           
+            </div>
+          
+           
+          
+       
           </form>
         </div>
       </section>
