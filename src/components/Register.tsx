@@ -6,13 +6,11 @@ import { useToast } from "@/hooks/use-toast";
 import { ISuccessResult, IVerifyResponse, MiniAppVerifyActionErrorPayload, MiniKit, VerificationLevel, VerifyCommandInput } from "@worldcoin/minikit-js";
 import axios from 'axios';
 
-export default function Register() {
+export default function Register()  {
   const [form, setForm] = useState({
     userName: "",
   });
-
   const { toast } = useToast();
-
   const verifyPayload: VerifyCommandInput = {
     action: 'register-action', // This is your action ID from the Developer Portal
     verification_level: VerificationLevel.Device, // Orb | Device
@@ -55,8 +53,6 @@ export default function Register() {
     // TODO: Handle Success!
     const verifyResponseJson = verifyResponse;
 
-
-
     if (verifyResponse.status === 200) {
       console.log("Verification success!");
       console.log(finalPayload);
@@ -76,82 +72,102 @@ export default function Register() {
   // Función para manejar el submit del formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Aquí podrías iniciar el proceso de verificación con World ID
+  
     toast({
       title: "Registro iniciado",
       description: "Por favor, verifica tu identidad con World ID",
     });
-    const result: any = await handleVerify();
-
-    if (result.status === 200) {
-      toast({
-        title: "Verificación exitosa",
-        description: "Tu identidad ha sido verificada con éxito",
-      })
-     const response = await axios.post("https://399s13b8-3000.brs.devtunnels.ms/user", {
-        userName: form.userName,
-        worldId: result.data.payload.nullifier_hash,
-      })
-
-     if(response.status === 201){
-      toast({
-        title: "Registro exitoso",
-        description: "Tu cuenta ha sido creada con éxito",
-      })
-    }
-    if(response.status === 400){
+  
+    try {
+      const result: any = await handleVerify();
+  
+      if (result.status === 200) {
+        toast({
+          title: "Verificación exitosa",
+          description: "Tu identidad ha sido verificada con éxito",
+        });
+      } else {
+        toast({
+          title: "Verificación fallida",
+          description: "Tu identidad no ha sido verificada con éxito",
+          variant: "destructive",
+        });
+        return;
+      }
+  
+      // Intentar registrar al usuario
+      try {
+        const response = await axios.post("https://399s13b8-3000.brs.devtunnels.ms/user", {
+          userName: form.userName,
+          worldId: result.data.payload.nullifier_hash,
+        });
+  
+        toast({
+          title: "Registro exitoso",
+          description: "Tu cuenta ha sido creada con éxito",
+        });
+  
+      } catch (error: any) {
+        if (error.response && error.response.status === 400) {
+          toast({
+            title: "Error",
+            description: "El nombre de usuario ya está registrado",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Error inesperado",
+            description: "No se pudo completar el registro",
+            variant: "destructive",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("❌ Error en la verificación:", error);
       toast({
         title: "Error",
-        description: "userName ya registrado",
-      })
+        description: "Hubo un problema en la verificación",
+        variant: "destructive",
+      });
     }
-
   };
+  
+    return (
+      <section className="container flex flex-col items-center  bg-slate-100 h-screen py-20 md:py-32 gap-10">
+        <div className="text-center space-y-6">
+          <main className="text-5xl md:text-6xl font-bold">
+            <h1 className="inline">
+              <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">
+                Registrarse
+              </span>
+            </h1>
+          </main>
 
-  return (
-    <section className="container flex flex-col items-center  bg-slate-100 h-screen py-20 md:py-32 gap-10">
-      {handleVerifyResponse && (
-        <div>
-          <p>{JSON.stringify(handleVerifyResponse)}</p>
+          <p className="text-xl text-muted-foreground md:w-10/12 mx-auto">
+            Crea tu cuenta y verifica tu identidad con World ID.
+          </p>
         </div>
-      )}
-     <div className="text-center space-y-6">
-  <main className="text-5xl md:text-6xl font-bold">
-    <h1 className="inline">
-      <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">
-        Registrarse
-      </span>
-    </h1>
-  </main>
 
-  <p className="text-xl text-muted-foreground md:w-10/12 mx-auto">
-    Crea tu cuenta y verifica tu identidad con World ID.
-  </p>
-</div>
+        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="userName">Nombre de usuario</Label>
+              <Input
+                id="userName"
+                type="text"
+                name="userName"
+                value={form.userName}
+                onChange={handleChange}
+                placeholder="Tu nombre de usuario"
+                required
+              />
+            </div>
 
-<div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <div>
-      <Label htmlFor="userName">Nombre de usuario</Label>
-      <Input
-        id="userName"
-        type="text"
-        name="userName"
-        value={form.userName}
-        onChange={handleChange}
-        placeholder="Tu nombre de usuario"
-        required
-      />
-    </div>
-
-    <Button className="w-full" type="submit">
-      Verificar con World ID
-    </Button>
-  </form>
-</div>
-
-    </section>
-  );
-}
-}
+            <Button className="w-full" type="submit">
+              Verificar con World ID
+            </Button>
+          </form>
+        </div>
+      </section>
+    );
+  }
