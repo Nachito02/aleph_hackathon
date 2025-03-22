@@ -18,6 +18,7 @@ import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
 import { LogIn } from 'lucide-react';
 import { CircleUserRound } from 'lucide-react';
+import { Link } from "react-router-dom";
 interface RouteProps {
   href: string;
   label: string;
@@ -43,21 +44,19 @@ const routeList: RouteProps[] = [
 ];
 
 export const Navbar = () => {
-  
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
-            <a
-              rel="noreferrer noopener"
-              href="/"
-              className="ml-2 font-bold text-xl flex"
+            <Link
+              to="/"
             >
               <LogoIcon />
-             Invert IA
-            </a>
+              Invert IA
+            </Link>
           </NavigationMenuItem>
 
           {/* mobile */}
@@ -80,32 +79,11 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Shadcn/React
+                    InvestIA
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
-                  {/* {routeList.map(({ href, label }: RouteProps) => (
-                    <a
-                      rel="noreferrer noopener"
-                      key={label}
-                      href={href}
-                      onClick={() => setIsOpen(false)}
-                      className={buttonVariants({ variant: "ghost" })}
-                    >
-                      {label}
-                    </a>
-                  ))}
-                  <a
-                    rel="noreferrer noopener"
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
-                    className={`w-[110px] border ${buttonVariants({
-                      variant: "secondary",
-                    })}`}
-                  >
-                    <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                    Github
-                  </a> */}
+
                 </nav>
               </SheetContent>
             </Sheet>
@@ -125,33 +103,26 @@ export const Navbar = () => {
                 {route.label}
               </a>
             ))}
-
-            
           </nav>
-          
-       
-
-          <div className="hidden md:flex gap-2">
-          <a
-              rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
-              
-            >register
-            <CircleUserRound className="mr-2 w-5 h-5" />
-            
-            </a>
+          <div className="hidden md:flex items-center gap-4">
             <a
               rel="noreferrer noopener"
               href="https://github.com/leoMirandaa/shadcn-landing-page.git"
               target="_blank"
               className={`border ${buttonVariants({ variant: "secondary" })}`}
-              
-            >login
-            <LogIn className="mr-2 w-5 h-5" />
-            
+
+            >register
+              <CircleUserRound className="mr-2 w-5 h-5" />
+
             </a>
+            <Link
+              to="/login"
+              className={`border ${buttonVariants({ variant: "secondary" })}`}
+
+            >login
+              <LogIn className="mr-2 w-5 h-5" />
+
+            </Link>
 
             <ModeToggle />
           </div>
