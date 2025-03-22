@@ -14,12 +14,14 @@ import { Sponsors } from "./components/Sponsors";
 import { Team } from "./components/Team";
 import { Testimonials } from "./components/Testimonials";
 import "./App.css";
+import MiniKitProvider from "./components/MiniProvider";
 
 function App() {
   return (
     <>
-      <Navbar />
-       <Hero /> 
+     <MiniKitProvider>
+     <Navbar />
+      <Hero />
       <Sponsors />
       <About />
       <HowItWorks />
@@ -33,6 +35,7 @@ function App() {
       <FAQ /> */}
       <Footer />
       <ScrollToTop />
+     </MiniKitProvider>
     </>
   );
 }
