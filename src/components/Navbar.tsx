@@ -14,7 +14,6 @@ import {
 
 import { buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
 import { LogIn } from 'lucide-react';
 import { CircleUserRound } from 'lucide-react';
@@ -27,20 +26,13 @@ interface RouteProps {
 const routeList: RouteProps[] = [
   {
     href: "#features",
-    label: "INVERCIONES",
+    label: "Inversiones",
   },
   {
     href: "#testimonials",
-    label: "GANANCIAS",
+    label: "Ganancias",
   },
-  {
-    href: "#pricing",
-    label: "Pricing",
-  },
-  {
-    href: "#faq",
-    label: "FAQ",
-  },
+
 ];
 
 export const Navbar = () => {
@@ -61,7 +53,7 @@ export const Navbar = () => {
 
           {/* mobile */}
           <span className="flex md:hidden">
-            <ModeToggle />
+        
 
             <Sheet
               open={isOpen}
@@ -105,16 +97,15 @@ export const Navbar = () => {
             ))}
           </nav>
           <div className="hidden md:flex items-center gap-4">
-            <a
-              rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
+            <Link
+              to="/register"
               className={`border ${buttonVariants({ variant: "secondary" })}`}
 
             >register
-              <CircleUserRound className="mr-2 w-5 h-5" />
+              <CircleUserRound className="mr-2 w-5 h-5 flex items-center gap-4" />
 
-            </a>
+            </Link>
+
             <Link
               to="/login"
               className={`border ${buttonVariants({ variant: "secondary" })}`}
@@ -124,7 +115,7 @@ export const Navbar = () => {
 
             </Link>
 
-            <ModeToggle />
+           
           </div>
         </NavigationMenuList>
       </NavigationMenu>
