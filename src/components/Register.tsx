@@ -110,46 +110,47 @@ export default function Register() {
   };
 
   return (
-    <section className="container flex flex-col items-center py-20 md:py-32 gap-10">
+    <section className="container flex flex-col items-center  bg-slate-100 h-screen py-20 md:py-32 gap-10">
       {handleVerifyResponse && (
         <div>
           <p>{JSON.stringify(handleVerifyResponse)}</p>
         </div>
       )}
-      <div className="text-center lg:text-start space-y-6">
-        <main className="text-5xl md:text-6xl font-bold">
-          <h1 className="inline">
-            <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">
-              Registrarse
-            </span>
-          </h1>
-        </main>
+     <div className="text-center space-y-6">
+  <main className="text-5xl md:text-6xl font-bold">
+    <h1 className="inline">
+      <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">
+        Registrarse
+      </span>
+    </h1>
+  </main>
 
-        <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Crea tu cuenta y verifica tu identidad con World ID.
-        </p>
-      </div>
+  <p className="text-xl text-muted-foreground md:w-10/12 mx-auto">
+    Crea tu cuenta y verifica tu identidad con World ID.
+  </p>
+</div>
 
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="userName">Nombre de usuario</Label>
-            <Input
-              id="userName"
-              type="text"
-              name="userName"
-              value={form.userName}
-              onChange={handleChange}
-              placeholder="Tu nombre de usuario"
-              required
-            />
-          </div>
+<div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      <Label htmlFor="username">Nombre de usuario</Label>
+      <Input
+        id="username"
+        type="text"
+        name="username"
+        value={form.username}
+        onChange={handleChange}
+        placeholder="Tu nombre de usuario"
+        required
+      />
+    </div>
 
-          <Button className="w-full" type="submit">
-            Verificar con World ID
-          </Button>
-        </form>
-      </div>
+    <Button className="w-full" type="submit">
+      Verificar con World ID
+    </Button>
+  </form>
+</div>
+
     </section>
   );
 }
