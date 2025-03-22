@@ -103,7 +103,7 @@ export default function Register() {
     if(response.status === 400){
       toast({
         title: "Error",
-        description: "UserName ya registrado",
+        description: "userName ya registrado",
       })
     }
 
@@ -133,12 +133,12 @@ export default function Register() {
 <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
   <form onSubmit={handleSubmit} className="space-y-4">
     <div>
-      <Label htmlFor="username">Nombre de usuario</Label>
+      <Label htmlFor="userName">Nombre de usuario</Label>
       <Input
-        id="username"
+        id="userName"
         type="text"
-        name="username"
-        value={form.username}
+        name="userName"
+        value={form.userName}
         onChange={handleChange}
         placeholder="Tu nombre de usuario"
         required
