@@ -15,13 +15,15 @@ import { Team } from "./components/Team";
 import { Testimonials } from "./components/Testimonials";
 import "./App.css";
 import MiniKitProvider from "./components/MiniProvider";
+import { MainSection } from "./components/MainSection";
 
 function App() {
   return (
     <>
      <MiniKitProvider>
      <Navbar />
-      <Hero />
+     <MainSection />
+      {/* <Hero /> */}
       <Sponsors />
       <About />
       <HowItWorks />
