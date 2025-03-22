@@ -4,21 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ISuccessResult, IVerifyResponse, MiniAppVerifyActionErrorPayload, MiniKit, VerificationLevel, VerifyCommandInput } from "@worldcoin/minikit-js";
-
-
+import axios from 'axios';
 
 export default function Register() {
   const [form, setForm] = useState({
-    username: "",
+    userName: "",
   });
 
   const { toast } = useToast();
 
-  
-const verifyPayload: VerifyCommandInput = {
-  action: 'register-action', // This is your action ID from the Developer Portal
-  verification_level: VerificationLevel.Device, // Orb | Device
-}
+  const verifyPayload: VerifyCommandInput = {
+    action: 'register-action', // This is your action ID from the Developer Portal
+    verification_level: VerificationLevel.Device, // Orb | Device
+  }
 
   const [handleVerifyResponse, setHandleVerifyResponse] = useState<
     MiniAppVerifyActionErrorPayload | IVerifyResponse | null
@@ -29,9 +27,7 @@ const verifyPayload: VerifyCommandInput = {
       console.warn("Tried to invoke 'verify', but MiniKit is not installed.");
       return null;
     }
-
     const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);
-
     // no need to verify if command errored
     if (finalPayload.status === "error") {
       console.log("Command error");
@@ -42,30 +38,31 @@ const verifyPayload: VerifyCommandInput = {
     }
 
     // Verify the proof in the backend
-    const verifyResponse = await fetch(
-      `https://399s13b8-3000.brs.devtunnels.ms/verify`,
+    const verifyResponse = await axios.post(
+      "https://399s13b8-3000.brs.devtunnels.ms/verify",
       {
-        method: "POST",
+        payload: finalPayload as ISuccessResult, // Parses only the fields we need to verify
+        action: verifyPayload.action,
+        signal: verifyPayload.signal, // Optional
+      },
+      {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          payload: finalPayload as ISuccessResult, // Parses only the fields we need to verify
-          action: verifyPayload.action,
-          signal: verifyPayload.signal, // Optional
-        }),
       }
     );
 
     // TODO: Handle Success!
-    const verifyResponseJson = await verifyResponse.json();
+    const verifyResponseJson = verifyResponse;
 
-    if (verifyResponseJson.status === 200) {
+
+
+    if (verifyResponse.status === 200) {
       console.log("Verification success!");
       console.log(finalPayload);
     }
 
-    setHandleVerifyResponse(verifyResponseJson);
+    setHandleVerifyResponse(verifyResponseJson.data);
     return verifyResponseJson;
   }, []);
 
@@ -85,18 +82,31 @@ const verifyPayload: VerifyCommandInput = {
       title: "Registro iniciado",
       description: "Por favor, verifica tu identidad con World ID",
     });
+    const result: any = await handleVerify();
 
-    console.log("Usuario:", form.username);
+    if (result.status === 200) {
+      toast({
+        title: "Verificación exitosa",
+        description: "Tu identidad ha sido verificada con éxito",
+      })
+     const response = await axios.post("https://399s13b8-3000.brs.devtunnels.ms/user", {
+        userName: form.userName,
+        worldId: result.data.payload.nullifier_hash,
+      })
 
-        const result = await handleVerify();
+     if(response.status === 201){
+      toast({
+        title: "Registro exitoso",
+        description: "Tu cuenta ha sido creada con éxito",
+      })
+    }
+    if(response.status === 400){
+      toast({
+        title: "Error",
+        description: "UserName ya registrado",
+      })
+    }
 
-        if (result.status === 200) {
-          toast({
-            title: "Verificación exitosa",
-            description: "Tu identidad ha sido verificada con éxito",
-            
-          })
-        }
   };
 
   return (
@@ -123,12 +133,12 @@ const verifyPayload: VerifyCommandInput = {
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="username">Nombre de usuario</Label>
+            <Label htmlFor="userName">Nombre de usuario</Label>
             <Input
-              id="username"
+              id="userName"
               type="text"
-              name="username"
-              value={form.username}
+              name="userName"
+              value={form.userName}
               onChange={handleChange}
               placeholder="Tu nombre de usuario"
               required
@@ -142,4 +152,5 @@ const verifyPayload: VerifyCommandInput = {
       </div>
     </section>
   );
+}
 }
