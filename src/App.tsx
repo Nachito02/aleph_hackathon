@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
-import Account from "./components/Account";
+import Dashboard from "./components/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Wallet from "./components/Wallet";
 function App() {
-
   return (
     <>
       <MiniKitProvider>
@@ -18,10 +19,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/cuenta" element={<Account />} />
-
+            <Route path="/wallet" element={<Wallet />} />
+            {/* Rutas protegidas */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
           </Routes>
-          
+
           <Footer />
         </Router>
       </MiniKitProvider>

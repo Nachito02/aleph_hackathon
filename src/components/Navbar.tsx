@@ -12,49 +12,56 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
 import { LogoIcon } from "./Icons";
 import { LogIn } from 'lucide-react';
 import { CircleUserRound } from 'lucide-react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuthStore from "@/store/authStore";
+import { GiPayMoney } from "react-icons/gi";
+import { LuWallet } from "react-icons/lu";
 interface RouteProps {
   href: string;
   label: string;
 }
 
 const routeList: RouteProps[] = [
-  {
-    href: "#features",
-    label: "Inversiones",
-  },
-  {
-    href: "#testimonials",
-    label: "Ganancias",
-  },
-
+  // {
+  //   href: "#wallet",
+  //   label: "Wallet",
+  // },
+  // {
+  //   href: "#testimonials",
+  //   label: "Ganancias",
+  // },
 ];
 
+
+
+
 export const Navbar = () => {
+const { user, isAuthenticated,logout } = useAuthStore();
+
+const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
-          <NavigationMenuItem className="font-bold flex">
+          <NavigationMenuItem className="font-bold flex flex-1">
             <Link
+              className=""
               to="/"
             >
-              <LogoIcon />
-              Invert IA
+              <GiPayMoney />
+              TrustPays
             </Link>
           </NavigationMenuItem>
 
           {/* mobile */}
           <span className="flex md:hidden">
-        
-
             <Sheet
               open={isOpen}
               onOpenChange={setIsOpen}
@@ -71,54 +78,80 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    InvestIA
+                    TrustPays
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
+                  <Link
+                    className=""
+                    to="/"
+                  >
+                    Inicio
+                  </Link>
 
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </span>
+                  {isAuthenticated === true ? (
+                    <>
+                    <Button onClick={logout}>Cerrar Sesion</Button>
+                    <Button onClick={()=> navigate("/dashboard")}>Dashboard</Button>
 
-          {/* desktop */}
-          <nav className="hidden md:flex gap-2">
-            {routeList.map((route: RouteProps, i) => (
-              <a
-                rel="noreferrer noopener"
-                href={route.href}
-                key={i}
-                className={`text-[17px] ${buttonVariants({
-                  variant: "ghost",
-                })}`}
-              >
-                {route.label}
-              </a>
-            ))}
-          </nav>
-          <div className="hidden md:flex items-center gap-4">
-            <Link
-              to="/register"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
+                    </>
+                  ): (
+                      <>
+                      <Link
+                    className = ""
+                    to = "/"
+                      >
+                    Registro
+                  </Link>
+                <Link
+                  className=""
+                  to="/login"
+                >
+                  Iniciar Sesion
+                </Link>
+                </>
+                    )}
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </span>
 
-            >register
-              <CircleUserRound className="mr-2 w-5 h-5 flex items-center gap-4" />
-
-            </Link>
-
-            <Link
-              to="/login"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
-
-            >login
-              <LogIn className="mr-2 w-5 h-5" />
-
-            </Link>
-
-           
-          </div>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </header>
+      <nav className="hidden md:flex gap-2 flex-2">
+        {routeList.map((route: RouteProps, i) => (
+          <a
+            rel="noreferrer noopener"
+            href={route.href}
+            key={i}
+            className={`text-[17px] ${buttonVariants({
+              variant: "ghost",
+            })}`}
+          >
+            {route.label}
+          </a>
+        ))}
+      </nav>
+      <div className="hidden md:flex items-center gap-4">
+        <Link
+          to="/wallet"
+          className={`border flex items-center gap-2 ${buttonVariants({ variant: "secondary" })}`}
+        >Wallet
+          <LuWallet className="mr-2 w-5 h-5 flex items-center gap-4" />
+        </Link>
+        <Link
+          to="/register"
+          className={`border flex items-center gap-2 ${buttonVariants({ variant: "secondary" })}`}
+        >Register
+          <CircleUserRound className="mr-2 w-5 h-5 flex items-center gap-4" />
+        </Link>
+        <Link
+          to="/login"
+          className={`border flex items-center gap-2  ${buttonVariants({ variant: "secondary" })}`}
+        >Login
+          <LogIn className="mr-2 w-5 h-5" />
+        </Link>
+      </div>
+    </NavigationMenuList>
+      </NavigationMenu >
+    </header >
   );
 };

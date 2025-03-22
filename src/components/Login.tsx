@@ -1,9 +1,40 @@
-
 import { Button } from "@/components/ui/button";
+import useAuthStore from "@/store/authStore";
+import { useCallback } from "react";
+import { MiniKit, VerificationLevel } from "@worldcoin/minikit-js";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const { login } = useAuthStore();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const handleLogin = useCallback(async () => {
+    if (!MiniKit.isInstalled()) {
+      toast({ title: "Error", description: "World ID no está instalado", variant: "destructive" });
+      return;
+    }
+
+    const verifyPayload = { action: "register-action", verification_level: VerificationLevel.Device };
+    const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);
+
+    if (finalPayload.status === "error") {
+      toast({ title: "Error", description: "Verificación fallida", variant: "destructive" });
+      return;
+    }
+
+    const result = await login(finalPayload.nullifier_hash);
+
+    if (result.success) {
+      toast({ title: "Éxito", description: "Inicio de sesión exitoso" });
+      navigate('/dashboard')
+    } else {
+      toast({ title: "Error", description: result.error, variant: "destructive" });
+    }
+  }, [login, toast]);
+
   return (
-    <section className="container  bg-slate-100 flex flex-col items-center py-20 md:py-32 gap-10 h-screen">
+    <section className="container bg-slate-100 flex flex-col items-center py-20 md:py-32 gap-10 h-screen">
       <div className="text-center lg:text-start space-y-6">
         <main className="text-5xl md:text-6xl font-bold">
           <h1 className="inline">
@@ -12,31 +43,14 @@ export default function Login() {
             </span>
           </h1>
         </main>
-
-        <p className="text-xl text-muted-foreground aling:center md:w-10/12 mx-auto text-center lg:mx-0">
-          Accede a tu cuenta con tus credenciales.
-        </p>
+        <p className="text-xl text-muted-foreground text-center md:w-10/12 mx-auto">Accede con World ID</p>
       </div>
-<div className="">
-<Button className="w-full justify-evenly" type="submit">
-  <div className="flex items-center gap-2"><img src="/worldcoin.png" alt="" className="w-7" />continue with sing in with Worldcoin</div>
-  </Button>
- </div>
-      {/*<div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-        <form className="space-y-4">
-          <div>
-            <Label htmlFor="email">Correo electrónico</Label>
-            <Input id="email" type="email" placeholder="tucorreo@example.com" required />
-          </div>
-
-          <div>
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" type="password" placeholder="********" required />
-          </div>
-
-          <Button className="w-full" type="submit">Iniciar sesión</Button>
-        </form>
-      </div> */}
+      <Button className="w-full" onClick={handleLogin}>
+        <div className="flex items-center gap-2">
+          <img src="/worldcoin.png" alt="Worldcoin" className="w-7" />
+          Iniciar sesión con Worldcoin
+        </div>
+      </Button>
     </section>
   );
 }

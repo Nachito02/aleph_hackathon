@@ -12,7 +12,7 @@ export const About = () => {
       <div className="bg-trasparen border rounded-lg py-12">
         <div className="px-6 flex flex-col-reverse md:flex-row gap-8 md:gap-12">
           <img
-            src="/ia.jpg"
+            src="../src/assets/image.png"
             alt=""
             className="w-[300px] object-contain rounded-lg"
           />
@@ -20,20 +20,16 @@ export const About = () => {
             <div className="pb-50">
               <h2 className="text-3xl md:text-4xl font-bold">
                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-                InvestIA{" "}
+                TrustPays{" "}
                 </span>
-                Company
+                
               </h2>
-              <p className="text-xl text-muted-foreground mt-4">
-              estamos revolucionando el mundo de las finanzas con una plataforma segura, rápida e innovadora. Nuestro banco utiliza lo último en tecnología blockchain, permitiéndote iniciar sesión de manera rápida y segura con Worldcoin, sin complicaciones.
-              </p><p className="text-xl text-muted-foreground mt-4">
-Gracias a la tecnología de zkSync, todas tus transacciones son completamente cifradas, garantizando la máxima seguridad y privacidad. Además, con la inteligencia artificial integrada en nuestra plataforma, tus inversiones se gestionan automáticamente, optimizando tu rendimiento y tomando decisiones informadas al instante.
-</p><p className="text-xl text-muted-foreground mt-4">
-Únete a nosotros y lleva tus finanzas al siguiente nivel, con la combinación perfecta de seguridad, innovación y automatización.
-</p>
+              <p className="text-xl text-muted-foreground my-[2rem]">
+              Bienvenido a TrustPays, la aplicación de pagos que te ofrece seguridad y confianza en cada transacción. Utilizando la tecnología de World ID de Worldcoin, garantizamos que tus pagos sean realizados por usuarios verificados y con reputación. Con TrustPays, puedes disfrutar de un sistema de pagos transparente y sin fricciones, donde la confianza es lo más importante. Conecta tu cuenta, realiza pagos con facilidad y construye tu historial de reputación, todo en un solo lugar. 
+              </p>
             </div>
 
-            <Statistics />
+            {/* <Statistics /> */}
           </div>
         </div>
       </div>

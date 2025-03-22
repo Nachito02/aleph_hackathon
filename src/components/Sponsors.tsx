@@ -10,11 +10,11 @@ const sponsors: SponsorProps[] = [
     icon: <img src="./world-logo.svg" alt="" size={34} />,
     name: "",
   },
-  {
-    icon: <img src="zk-logo.svg" alt=""className="max-h-[32px] transition duration-300 ease-in-out  invert mix-blend-multiply"  size={34} />,
+  // {
+  //   icon: <img src="zk-logo.svg" alt=""className="max-h-[32px] transition duration-300 ease-in-out  invert mix-blend-multiply"  size={34} />,
     
-    name: "",
-  },
+  //   name: "",
+  // },
 
 ];
 
@@ -25,7 +25,7 @@ export const Sponsors = () => {
       className="container pt-24 sm:py-32"
     >
       <h2 className="text-center text-md lg:text-xl font-bold mb-8 text-primary">
-        Investors and founders
+        Powered by
       </h2>
 
       <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">

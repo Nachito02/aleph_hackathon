@@ -10,9 +10,7 @@
     "shadcn",
     "shadcn/ui",
     "tailwind",
-    "landing-page",
-    "template",
-    "responsive-design"
+ "web3"
   ],
   "private": true,
   "version": "1.1.0",
@@ -33,19 +31,25 @@
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.6",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "@worldcoin/id": "^0.9.2",
     "@worldcoin/minikit-js": "^1.8.0",
     "@worldcoin/minikit-react": "^1.8.0",
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "ethers": "^6.13.5",
     "install": "^0.13.0",
     "lucide-react": "^0.424.0",
     "npm": "^11.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
