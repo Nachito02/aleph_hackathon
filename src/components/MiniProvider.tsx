@@ -11,7 +11,7 @@ export default function MiniKitProvider({children} : {children: ReactNode}) {
 
     return <>
         <h1>MiniKit {MiniKit.isInstalled().toString()}</h1>
-        <button onClick={()=> alert(MiniKit.isInstalled().toString())}></button>
+        <button onClick={()=> alert(MiniKit.isInstalled().toString())}>eskere</button>
         {children}
     </>
 }
