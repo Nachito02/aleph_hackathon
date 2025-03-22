@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Account from "./components/Account";
 function App() {
+
   return (
     <>
       <MiniKitProvider>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/cuenta" element={<Account />} />
+
           </Routes>
           
           <Footer />
