@@ -1,12 +1,10 @@
-
-import { GiPayMoney } from "react-icons/gi";
 export const Footer = () => {
-  return (
-    <footer id="footer">
-      <hr className="w-11/12 mx-auto" />
+	return (
+		<footer id="footer">
+			<hr className="w-11/12 mx-auto" />
 
-      <section className="container py-20 grid grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-x-12 gap-y-8">
-        {/* <div className="col-span-full xl:col-span-1">
+			<section className="container py-20 grid grid-cols-1 md:grid-cols-1 xl:grid-cols-1 gap-x-12 gap-y-8">
+				{/* <div className="col-span-full xl:col-span-1">
           <a
             rel="noreferrer noopener"
             href="/"
@@ -17,7 +15,7 @@ export const Footer = () => {
           </a>
         </div> */}
 
-        {/* <div className="flex flex-col gap-2">
+				{/* <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Follow US</h3>
           <div>
             <a
@@ -148,14 +146,11 @@ export const Footer = () => {
             </a>
           </div>
         </div> */}
-      </section>
+			</section>
 
-      <section className="container pb-14 text-center">
-        <h3>
-     
-          &copy; TrustPays - ALEPH HACKATHON - 2025{" "}
-        </h3>
-      </section>
-    </footer>
-  );
+			<section className="container pb-14 text-center">
+				<h3>&copy; TrustPays - ALEPH HACKATHON - 2025 </h3>
+			</section>
+		</footer>
+	);
 };
